@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "preinstall": "./yarn_setup.sh"
+    "build": "bash ./build.sh"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.4.3",
