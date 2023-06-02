@@ -2,3 +2,6 @@
 /.idea
 fly.toml
 yarn.lock
+Dockerfile
+.dockerignore
+.gitignore
