@@ -5,8 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "build": "bash ./build.sh"
+    "start": "node index.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.4.3",
