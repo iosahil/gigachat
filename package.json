@@ -29,5 +29,8 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.2.13"
+  },
+  "engines": {
+    "yarn": "^1.22.19"
   }
 }
