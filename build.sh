@@ -9,3 +9,4 @@ rm package-lock.json
 rm -rf node_modules
 echo "Running yarn install..."
 yarn install
+yarn start
