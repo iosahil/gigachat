@@ -57,6 +57,7 @@ export async function chatHandler(text, groupId, bot, message) {
                     "• ```m 11.3 5``` (To get answer to exercise 11.3 question 5)\n" +
                     "*Tip*: You can also reply to a message to chat with GigaChat\n\n" +
                     "*Image Features*:\n" +
+                    "• ```i <prompt>``` — Generate image from text\n" +
                     "• ```<image>``` — Extract text from image\n" +
                     "• ```<image> <caption>``` — Chat with visual image\n" +
                     "• ```<image> <caption-with-prompt>``` — Prompt AI image's text\n\n" +
