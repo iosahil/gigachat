@@ -1,10 +1,12 @@
 import {Configuration, OpenAIApi} from "openai";
-import {logger} from "../utils/logger.js";
 import {isApproved, isNotApproved} from "../utils/approval.js";
 import {editMessage, splitter, wait} from "../utils/utils.js";
 import {config} from "../../config.js";
+import {askBackup1, askBackup2, askBackup3} from "./backup.js";
+import {logger} from "../utils/logger.js";
 
 let openaiInstance;
+
 async function getOpenAI() {
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
@@ -12,39 +14,37 @@ async function getOpenAI() {
     if (!openaiInstance) openaiInstance = new OpenAIApi(configuration);
     return openaiInstance;
 }
+
 const modelName = config.gpt4 ? "gpt-4" : "gpt-3.5-turbo";
 
 export async function askGPT(prompt, context = undefined) {
     let response;
     const openai = await getOpenAI();
+
+    const assistant = "You are GigaChat, an AI chat-bot deployed to help students of KIIT University. Anyone can access your features by adding you to a group. You are developed by a first-year KIIT university student, Sahil Choudhary. Use C Language as default language for programming queries."
+    let message;
+    if (context !== undefined) {
+        message = [
+            {"role": "system", "content": assistant},
+            {"role": "assistant", "content": context},
+            {"role": "user", "content": prompt}
+        ]
+    } else {
+        message = [
+            {"role": "system", "content": assistant},
+            {"role": "user", "content": prompt}
+        ]
+    }
     try {
-        const assistant = "You are GigaChat, an AI chat-bot deployed to help students of KIIT University. Anyone can access your features by adding you to a group. You are developed by a first-year KIIT university student, Sahil Choudhary. Use C Language as default language for programming queries."
-        let message;
-        if (context !== undefined) {
-            message = [
-                {"role": "system", "content": assistant},
-                {"role": "assistant", "content": context},
-                {"role": "user", "content": prompt}
-            ]
-        } else {
-            message = [
-                {"role": "system", "content": assistant},
-                {"role": "user", "content": prompt}
-            ]
-        }
         const completion = await openai.createChatCompletion({
             model: modelName,
             messages: message
-        });
+        })
         response = completion.data.choices[0].message?.content;
         if (typeof completion.data.choices[0].message === "string") response = completion.data.choices[0].message;
     } catch (error) {
-        if (error.response) {
-            logger.error(error.response.status);
-            logger.error(error.response.data);
-        } else {
-            logger.error(error.message);
-        }
+        logger.error(error)
+        response = await askBackup1(message) ?? await askBackup2(message) ?? await askBackup3(message)
     }
     return response;
 }
