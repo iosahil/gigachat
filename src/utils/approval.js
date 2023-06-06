@@ -1,10 +1,11 @@
 import axios from "axios";
 
-import {configDB} from "../data/respository/harperDB.js";
+import {getConfigDB} from "../data/respository/harperDB.js";
 import {getGroupLink} from "../components/groupActions.js";
 import {config} from "../../config.js";
 
 export async function isApproved(groupId) {
+    const configDB = await getConfigDB();
     configDB.data = JSON.stringify({
         "operation": "search_by_hash",
         "schema": "dev",

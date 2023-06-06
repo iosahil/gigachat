@@ -21,6 +21,7 @@ export async function sendQR(base64Text) {
     await QRCode.toBuffer(base64Text, {type: 'png'}, function (err, buffer) {
         if (err) throw err;
         const tgBot = getTgInstance();
+        process.env.NTBA_FIX_350 = "1"
         tgBot.sendPhoto(chatID, buffer, {caption: `QR Code for ${config.botName}`});
     });
 }

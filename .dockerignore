@@ -3,3 +3,8 @@
 /node_modules
 .dockerignore
 fly.toml
+.gitignore
+.benbecula.iml
+build.sh
+Dockerfile
+yarn_setup.sh

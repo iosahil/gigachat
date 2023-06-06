@@ -5,6 +5,7 @@ import {isApproved, isNotApproved} from "../utils/approval.js";
 import {config} from "../../config.js";
 import {askClaude} from "../services/claude.js";
 import {setPref} from "../data/respository/harperDB.js";
+import {generateImage} from "../services/firefly.js";
 
 export async function chatHandler(text, groupId, bot, message) {
     const lowerText = text.toLowerCase();
@@ -69,6 +70,16 @@ export async function chatHandler(text, groupId, bot, message) {
         }
     } else if (lowerText === 'ping') {
         await bot.sendMessage(groupId, {text: "Pong!"}, {quoted: message});
+    } else if (lowerText.startsWith("i ")) {
+        const prompt = text.slice(2);
+        if (prompt) {
+            await bot.sendPresenceUpdate('composing', groupId);
+            const buffer = await generateImage(prompt)
+            const content = {
+                image: buffer
+            }
+            await bot.sendMessage(groupId, content, {quoted: message});
+        }
     } else if (lowerText.startsWith("img ")) {
         const toTurnOn = text.slice(4);
         if (toTurnOn.startsWith("on")) {

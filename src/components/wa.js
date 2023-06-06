@@ -6,11 +6,10 @@ import makeWASocket, {
     WAMessageStubType,
     makeCacheableSignalKeyStore,
     isJidBroadcast,
-    isJidStatusBroadcast, isJidGroup, isJidUser
+    isJidStatusBroadcast, isJidGroup, isJidUser, Browsers
 } from '@whiskeysockets/baileys';
-import {Boom} from '@hapi/boom'; // Error handling
+import {Boom} from '@hapi/boom';
 import NodeCache from 'node-cache';
-
 import {logger} from "../utils/logger.js";
 import {useHarperDB} from "../data/respository/harperDB.js";
 import {config} from "../../config.js";
@@ -25,12 +24,11 @@ const msgRetryCounterCache = new NodeCache();
 const mediaCache = new NodeCache();
 
 // Global variables
-let botNum;
 let isFirstRun = true;
 
 // Automated check to enable debug mode
 function checkDebug() {
-    // process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachat' : config.botName = 'gigachatdev';
+    process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachat' : config.botName = 'gigachatdev';
     config.debug = config.botName === "gigachatdev";
 }
 checkDebug();
@@ -39,7 +37,7 @@ export let bot;
 async function getBotInstance() {
     if (!bot) {
         const {state} = await useHarperDB(config.botName, false);
-
+        // const {state} = await useMultiFileAuthState(config.botName)
         const waConfig = {
             printQRInTerminal: false,
             syncFullHistory: false,
@@ -50,7 +48,8 @@ async function getBotInstance() {
                 keys: makeCacheableSignalKeyStore(state.keys, logger)
             },
             mediaCache: mediaCache,
-            msgRetryCounterCache
+            msgRetryCounterCache,
+            browser: Browsers.macOS('Desktop'),
         }
 
         // Create a new bot instance, default for ES6
@@ -64,13 +63,14 @@ export async function startWA() {
     try {
         // Use HarperDB to store credentials & keys
         const {saveCreds} = await useHarperDB(config.botName, false);
+        // const {saveCreds} = await useMultiFileAuthState(config.botName)
 
         // Get the bot instance
         bot = await getBotInstance();
 
         // Get the bot number
-        const _jid = bot.user.id.split('@')[0];
-        botNum = _jid.includes(":") ? _jid.split(':')[0] : _jid;
+        // const _jid = bot?.user?.id.split('@')[0];
+        // botNum = _jid?.includes(":") ? _jid.split(':')[0] : _jid;
 
         bot.ev.on('connection.update', async update => {
             // Sends QR code to Telegram Chat
