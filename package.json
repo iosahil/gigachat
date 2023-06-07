@@ -8,6 +8,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@adiwajshing/keyed-db": "^0.2.4",
     "@anthropic-ai/sdk": "^0.4.3",
     "@azure/ai-form-recognizer": "4.1.0-beta.1",
     "@hapi/boom": "^10.0.1",
