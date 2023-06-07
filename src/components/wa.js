@@ -28,7 +28,7 @@ let isFirstRun = true;
 
 // Automated check to enable debug mode
 function checkDebug() {
-    process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachatdev' : config.botName = 'gigachat';
+    process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachatdev' : config.botName = 'gigachatdev';
     if (process.env.BOT_NAME) config.botName = process.env.BOT_NAME;
     config.debug = config.botName === "gigachatdev";
 }
@@ -150,7 +150,7 @@ export async function startWA() {
                     const isBroadcastMessage = isJidBroadcast(jid) || isJidStatusBroadcast(jid);
                     let fromMe = key.fromMe;
 
-                    const flag = !isBroadcastMessage && !fromMe; // Check if a message is not from self or broadcast
+                    const flag = !isBroadcastMessage && !fromMe && !key?.participant.includes("44770016"); // Check if a message is not from self or broadcast
                     if (flag) {
                         await bot.readMessages([key]); // Mark all as read
                         // Extract text from the message
