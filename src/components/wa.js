@@ -6,7 +6,7 @@ import makeWASocket, {
     WAMessageStubType,
     makeCacheableSignalKeyStore,
     isJidBroadcast,
-    isJidStatusBroadcast, isJidGroup, isJidUser, Browsers
+    isJidStatusBroadcast, isJidGroup, isJidUser
 } from '@whiskeysockets/baileys';
 import {Boom} from '@hapi/boom';
 import NodeCache from 'node-cache';
@@ -41,7 +41,6 @@ async function getBotInstance() {
         const {state} = await useHarperDB(config.botName, false);
         // const {state} = await useMultiFileAuthState(config.botName)
         const waConfig = {
-            version: [2,2323,4],
             printQRInTerminal: false,
             syncFullHistory: false,
             markOnlineOnConnect: true,
@@ -51,8 +50,7 @@ async function getBotInstance() {
                 keys: makeCacheableSignalKeyStore(state.keys, logger)
             },
             mediaCache: mediaCache,
-            msgRetryCounterCache,
-            browser: Browsers.baileys('Chrome')
+            msgRetryCounterCache
         }
 
         // Create a new bot instance, default for ES6
