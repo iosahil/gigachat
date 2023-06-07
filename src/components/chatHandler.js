@@ -119,6 +119,10 @@ export async function adminChatHandler(text, groupId, bot, message) {
             }
             break;
         }
+        case text === "check": {
+            await bot.sendMessage("120363064102933317@g.us", {text: "Configuring..."});
+            break;
+        }
         default:
             break;
     }
