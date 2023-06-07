@@ -30,7 +30,7 @@ let isFirstRun = true;
 function checkDebug() {
     process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachat' : config.botName = 'gigachatdev';
     if (process.env.BOT_NAME) config.botName = process.env.BOT_NAME;
-    // config.BOT_NAME = "gigachat2"
+    // config.botName = "gigachat2"
     config.debug = config.botName === "gigachatdev";
 }
 checkDebug();
