@@ -60,7 +60,7 @@ export async function initServer() {
                     if (answers.agree !== undefined && answers.agree === true) {
                         let isNeed = answers.need !== undefined && answers.need !== '';
                         let isGroupInterested = answers.groupInterested !== undefined && answers.groupInterested === true;
-                        let message = `🛎️ <b>New Group Access Request</b>\n\n<b>Group Name:</b> ${answers.groupName}\n<b>Group ID:</b> ${answers.groupId}\n\n<b>Name:</b> ${answers.name}\n<b>Phone:</b> ${answers.phone}\n<b>WhatsApp</b>: ${"wa.me/" + answers.phone.toString()}`
+                         let message = `🛎️ <b>New Group Access Request</b>\n\n<b>Group Name:</b> ${answers.groupName}\n<b>Group ID:</b> ${answers.groupId}\n\n<b>Name:</b> ${answers.name}\n<b>Phone:</b> ${answers.phone}\n<b>WhatsApp</b>: ${"wa.me/" + answers.phone.toString()}`
                             + (isNeed ? `\n<b>Need:</b>\n<code>${answers.need}</code>` : '')
                             + (isGroupInterested ? `\n\n<b>Interested in Group:</b> True\n<b>Email</b>: ${answers.mail}` : '')
                             + `\n\n<b>Status:</b> Awaiting Approval`;

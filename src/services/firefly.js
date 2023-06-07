@@ -2,6 +2,7 @@ import axios from "axios";
 import {v4 as uuidv4} from 'uuid';
 import {random} from "../utils/utils.js";
 import { default as FormData } from "form-data"
+import {logger} from "../utils/logger.js";
 
 const session = {
     session_id: "",
@@ -36,9 +37,9 @@ async function createSession(duration = 3600) {
         }
     } catch (err) {
         if (err?.response?.status === 401) {
-            throw new Error('Bearer auth token is invalid.');
+            logger.error('Bearer auth token is invalid.');
         }
-        throw err;
+        logger.error('Bearer auth token is invalid.');
     }
 }
 

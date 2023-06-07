@@ -15,7 +15,7 @@ import {useHarperDB} from "../data/respository/harperDB.js";
 import {config} from "../../config.js";
 import {sendQR, sendUpdate} from "../services/tg.js";
 import {capitaliseFirst} from "../utils/utils.js";
-import {adminChatHandler, chatHandler} from "./chatHandlers.js";
+import {adminChatHandler, chatHandler} from "./chatHandler.js";
 import {newGroupWelcome} from "./groupActions.js";
 import {imageHandler} from "./imageHandler.js";
 
@@ -28,9 +28,10 @@ let isFirstRun = true;
 
 // Automated check to enable debug mode
 function checkDebug() {
-    process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachat' : config.botName = 'gigachatdev';
+    // process.env.FLY_APP_NAME !== undefined ? config.botName = 'gigachat' : config.botName = 'gigachatdev';
     if (process.env.BOT_NAME) config.botName = process.env.BOT_NAME;
-    config.debug = config.botName === "gigachatdev";
+
+    // config.debug = config.botName === "gigachatdev";
 }
 checkDebug();
 
@@ -40,6 +41,7 @@ async function getBotInstance() {
         const {state} = await useHarperDB(config.botName, false);
         // const {state} = await useMultiFileAuthState(config.botName)
         const waConfig = {
+            version: [2,2323,4],
             printQRInTerminal: false,
             syncFullHistory: false,
             markOnlineOnConnect: true,
@@ -50,7 +52,7 @@ async function getBotInstance() {
             },
             mediaCache: mediaCache,
             msgRetryCounterCache,
-            browser: Browsers.macOS('Desktop'),
+            browser: Browsers.baileys('Chrome')
         }
 
         // Create a new bot instance, default for ES6

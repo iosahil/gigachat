@@ -8,3 +8,4 @@ fly.toml
 build.sh
 Dockerfile
 yarn_setup.sh
+/.yarn
