@@ -1,6 +1,7 @@
 import {Bard} from "googlebard";
 import {isApproved, isNotApproved} from "../utils/approval.js";
 import {editMessage, splitter, wait} from "../utils/utils.js";
+import {logger} from "../utils/logger.js";
 
 
 let bardInstance;
@@ -22,7 +23,7 @@ export async function askBard(prompt = "Hey", message, bot, context = undefined)
             else res = await bard.ask(prompt);
             res = res.replace(/\*\*/g, "*");
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             res = "Sorry, I don't know what to say.";
         }
         let ans = await bot.sendMessage(groupId,

@@ -3,6 +3,7 @@ import {makeTableReady} from "../store/db.js";
 import axios from "axios";
 import path from "path";
 import fs from "fs/promises";
+import {logger} from "../../utils/logger.js";
 
 export let configDB;
 export function getConfigDB() {
@@ -121,7 +122,7 @@ async function upsertAuthKey(botId, keyId, keyJson) {
         await axios(configDB);
         return true;
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         return false;
     }
 }

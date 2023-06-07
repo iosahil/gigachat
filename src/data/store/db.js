@@ -1,5 +1,6 @@
 import axios from "axios";
 import {configDB} from "../respository/harperDB.js";
+import {logger} from "../../utils/logger.js";
 
 async function isTableExisting(tableName) {
     configDB.data = JSON.stringify({
@@ -8,7 +9,7 @@ async function isTableExisting(tableName) {
         "schema": "dev"
     })
     const res = await axios(configDB).catch((err) => {
-        console.log(`Table ${tableName}: ${err.response.status} ${err.response.statusText}. Creating...`);
+        logger.info(`Table ${tableName}: ${err.response.status} ${err.response.statusText}. Creating...`);
         return {status: err.response.status};
     });
     return res.status === 200;

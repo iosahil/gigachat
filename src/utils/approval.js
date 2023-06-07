@@ -3,6 +3,7 @@ import axios from "axios";
 import {getConfigDB} from "../data/respository/harperDB.js";
 import {getGroupLink} from "../components/groupActions.js";
 import {config} from "../../config.js";
+import {logger} from "./logger.js";
 
 export async function isApproved(groupId) {
     const configDB = await getConfigDB();
@@ -20,7 +21,7 @@ export async function isApproved(groupId) {
     let isApproved = undefined;
     await axios(configDB).then(function (response) {
         isApproved = response.data[0]?.approved;
-    }).catch((err) => console.log(err))
+    }).catch((err) => logger.error(err))
     return isApproved;
 }
 

@@ -1,5 +1,6 @@
 import Replicate from "replicate";
 import {config} from "../../config.js";
+import {logger} from "../utils/logger.js";
 
 let replicateInstance;
 function getReplicateInstance() {
@@ -37,7 +38,7 @@ export async function getImageDesc(imageUrl = "https://picsum.photos/id/27/367/2
         if (typeof output === "string") return output;
         return output.join("");
     } catch (e) {
-        console.log(e);
+        logger.error(e);
         return undefined;
     }
 }

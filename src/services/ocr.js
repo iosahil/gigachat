@@ -1,4 +1,5 @@
 import {AzureKeyCredential, DocumentAnalysisClient} from "@azure/ai-form-recognizer";
+import {logger} from "../utils/logger.js";
 
 let azureClientInstance;
 function getAzureClient() {
@@ -17,7 +18,7 @@ export async function ocr(buffer) {
         const {content} = await poller.pollUntilDone();
         return content;
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         return undefined;
     }
 }

@@ -3,6 +3,7 @@ import {encrypt} from "../utils/utils.js";
 import {groupDB} from "../data/respository/harperDB.js";
 import {config} from "../../config.js";
 import {bot} from "./wa.js";
+import {logger} from "../utils/logger.js";
 
 export async function getGroupLink(bot, groupId) {
     const groupData = await getGroupData(bot, groupId);
@@ -74,7 +75,7 @@ export async function denyGroup(groupId) {
         await bot.sendMessage(groupId, {text: "Your group has been declined!\nPlease contact wa.me/919931004934 if you have any questions."});
         await bot.groupLeave(groupId);
     } catch (e) {
-        console.log(e);
+        logger.error(e);
     }
 }
 

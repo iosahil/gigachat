@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import ImageKit from "imagekit";
+import {logger} from "./logger.js";
 
 let imagekitInstance;
 function getImageKit() {
@@ -60,7 +61,7 @@ export async function editMessage(messageKey, bot, editedMessage) {
             }
         }, {})
     } catch (e) {
-        console.log(e);
+        logger.error(e);
     }
 }
 

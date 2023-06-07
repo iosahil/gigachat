@@ -58,7 +58,7 @@ export async function imageHandler(msg, bot, groupId) {
         if (!toAsk) await bot.sendMessage(groupId, {text: textData}, {quoted: msg})
         return true;
     } catch (e) {
-        console.log(e)
+        logger.error(e)
         return false;
     }
 }

@@ -143,6 +143,6 @@ export async function generateImage(prompt = "A girl playing with her toy") {
             }
         }
     } catch (e) {
-        console.log(e);
+        logger.error(e);
     }
 }
