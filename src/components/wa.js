@@ -178,10 +178,10 @@ export async function startWA() {
                                 logger.info("Received DM from " + jid.split('@')[0]);
                                 // Disabled due to WhatsApp restrictions
                                 // Note: Overuse of this feature can lead to a ban from WhatsApp
-                                // const userId = message.key.remoteJid;
-                                // await bot.sendMessage(userId,
-                                //     {text: "Hello, I am a bot. I am currently in development. Please wait for the next update."},
-                                //     {quoted: message});
+                                const userId = key.remoteJid;
+                                await bot.sendMessage(userId,
+                                    {text: "Hello, I am a bot. I am currently in development. Please wait for the next update."},
+                                    {quoted: msg});
 
                             } else if (isJidGroup(jid)) {
                                 const groupId = jid;
