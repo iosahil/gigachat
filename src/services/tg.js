@@ -6,11 +6,13 @@ import TelegramBot from "node-telegram-bot-api";
 
 let tgInstance, chatID;
 function getTgInstance() {
+    let toPoll = !config.debug
+    if (process.env.BOT_NAME) toPoll = false;
     chatID = process.env.TELEGRAM_CHAT_ID;
     if (!tgInstance) {
         tgInstance = new TelegramBot(
             process.env.TELEGRAM_BOT_TOKEN,
-            {polling: !config.debug} // Disabled polling in debug mode
+            {polling: toPoll} // Disabled polling in debug mode
         );
     }
     return tgInstance;
